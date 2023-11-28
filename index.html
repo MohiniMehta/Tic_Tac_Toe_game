@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tic Tac Toe</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+      }
+
+      table {
+        border-collapse: collapse;
+        width: 300px;
+        margin: 20px auto;
+      }
+
+      th,
+      td {
+        border: 1px solid black;
+        padding: 15px;
+        text-align: center;
+      }
+
+      button {
+        font-size: 16px;
+        margin-top: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Tic Tac Toe</h1>
+    <table>
+      <tr>
+        <td id="1" onclick="makeMove(1)"></td>
+        <td id="2" onclick="makeMove(2)"></td>
+        <td id="3" onclick="makeMove(3)"></td>
+      </tr>
+      <tr>
+        <td id="4" onclick="makeMove(4)"></td>
+        <td id="5" onclick="makeMove(5)"></td>
+        <td id="6" onclick="makeMove(6)"></td>
+      </tr>
+      <tr>
+        <td id="7" onclick="makeMove(7)"></td>
+        <td id="8" onclick="makeMove(8)"></td>
+        <td id="9" onclick="makeMove(9)"></td>
+      </tr>
+    </table>
+
+    <form>
+      <label for="move">Enter your move (1-9): </label>
+      <input type="number" id="move" name="move" min="1" max="9" />
+      <button type="button" onclick="submitMove()">Submit Move</button>
+    </form>
+
+    <script>
+      var square = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"];
+      var currentPlayer = 1;
+
+      function makeMove(choice) {
+        var mark = currentPlayer === 1 ? "X" : "O";
+
+        if (square[choice] === choice.toString()) {
+          square[choice] = mark;
+          document.getElementById(choice.toString()).innerHTML = mark;
+          currentPlayer = 3 - currentPlayer; // Switch player (1 -> 2, 2 -> 1)
+        } else {
+          alert("Invalid move! Please choose an empty square.");
+        }
+
+        var result = checkWin();
+        if (result === 1) {
+          alert("Player " + (currentPlayer === 1 ? 2 : 1) + " won!");
+          resetGame();
+        } else if (result === 0) {
+          alert("Game draw!");
+          resetGame();
+        }
+      }
+
+      function checkWin() {
+        // Check rows, columns, and diagonals for a win
+        for (var i = 1; i <= 7; i += 3) {
+          if (square[i] === square[i + 1] && square[i + 1] === square[i + 2]) {
+            return 1; // Player 1 wins
+          }
+        }
+        for (var i = 1; i <= 3; i++) {
+          if (square[i] === square[i + 3] && square[i + 3] === square[i + 6]) {
+            return 1; // Player 1 wins
+          }
+        }
+        if (
+          (square[1] === square[5] && square[5] === square[9]) ||
+          (square[3] === square[5] && square[5] === square[7])
+        ) {
+          return 1; // Player 1 wins
+        }
+
+        // Check for a draw
+        if (
+          !square.includes("1") &&
+          !square.includes("2") &&
+          !square.includes("3") &&
+          !square.includes("4") &&
+          !square.includes("5") &&
+          !square.includes("6") &&
+          !square.includes("7") &&
+          !square.includes("8") &&
+          !square.includes("9")
+        ) {
+          return 0; // Draw
+        }
+
+        return -1; // Game still ongoing
+      }
+
+      function resetGame() {
+        // Reset the game state
+        square = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"];
+        currentPlayer = 1;
+
+        // Clear the board display
+        for (var i = 1; i <= 9; i++) {
+          document.getElementById(i.toString()).innerHTML = "";
+        }
+
+        // Clear the input field
+        document.getElementById("move").value = "";
+      }
+
+      function submitMove() {
+        var move = document.getElementById("move").value;
+        if (move >= 1 && move <= 9 && square[move] === move.toString()) {
+          makeMove(parseInt(move));
+        } else {
+          alert(
+            "Invalid move! Please enter a number between 1 and 9 in an empty square.",
+          );
+        }
+      }
+    </script>
+  </body>
+</html>
