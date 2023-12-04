@@ -21,13 +21,12 @@ To run this game, you need a web browser that supports HTML5 and JavaScript.
 
 1. Clone the repository:
 
-```bash
-git clone https://github.com/your-username/tic-tac-toe.git
+   git clone https://github.com/your-username/tic-tac-toe.git
 
 2. Open the project directory:
 
-```bash
-cd tic-tac-toe
+   cd tic-tac-toe
+
 
 ## How to Play
 
