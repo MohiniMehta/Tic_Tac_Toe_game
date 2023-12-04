@@ -1,6 +1,7 @@
 # Tic Tac Toe
 
 This is a simple Tic Tac Toe game implemented in HTML, CSS, and JavaScript. The game allows two players to take turns making moves and checks for a winner or a draw after each move.
+The repository also has code in C language. 
 
 ## Table of Contents
 
